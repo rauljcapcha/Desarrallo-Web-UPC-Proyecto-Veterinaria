@@ -1,0 +1,59 @@
+<%= form_for(@pet) do |f| %>
+  <% if @pet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@pet.errors.count, "error") %> prohibited this pet from being saved:</h2>
+
+      <ul>
+      <% @pet.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <% sexos = { 'Macho' => 'Macho', 'Hembra' => 'Hembra'} %>
+    <%= f.label :'Sexo' %><br>
+    <%= f.select :sex, sexos %>
+  </div>
+  <div class="field">
+    <%= f.label :datebirth %><br>
+    <%= f.date_select :datebirth %>
+  </div>
+  <div class="field">
+    <%= f.label :color %><br>
+    <%= f.text_field :color %>
+  </div>
+  <div class="field">
+    <%= f.label :allergies %><br>
+    <%= f.text_area :allergies %>
+  </div>
+  <div class="field">
+    <%= f.label :chroniccondition %><br>
+    <%= f.text_field :chroniccondition %>
+  </div>
+  <div class="field">
+    <%= f.label :observation %><br>
+    <%= f.text_field :observation %>
+  </div>
+  <div class="field">
+    <%= f.label :'Dueño' %><br>
+    <%= f.select :customer_id, options_for_select(Customer.all.map{|s|[s.name, s.id]}, selected_key = @pet.customer_id)%>
+  </div>
+  <div class="field">
+    <%= f.label :'Especie' %><br>
+    <%= f.select :species_id, options_for_select(Species.all.map{|s|[s.name, s.id]}, selected_key = @pet.species_id)%>
+  </div>
+  <div class="field">
+    <%= f.label :'Raza' %><br>
+    <%= f.select :breed_id, options_for_select(Breed.all.map{|s|[s.name, s.id]}, selected_key = @pet.breed_id)%>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

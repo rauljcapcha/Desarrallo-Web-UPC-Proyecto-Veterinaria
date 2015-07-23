@@ -1,0 +1,76 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Document type:</strong>
+  <%= @customer.document_type.name %>
+</p>
+
+<p>
+  <strong>Documentnumber:</strong>
+  <%= @customer.documentnumber %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @customer.name %>
+</p>
+
+<p>
+  <strong>Streetaddresss:</strong>
+  <%= @customer.streetaddresss %>
+</p>
+
+<p>
+  <strong>Postalcode:</strong>
+  <%= @customer.postalcode %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @customer.phone %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @customer.email %>
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>Datebirth</th>
+      <th>Color</th>
+      <th>Allergies</th>
+      <th>Chroniccondition</th>
+      <th>Observation</th>
+      <th>Species</th>
+      <th>Breed</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @customer.pets.each do |pet| %>
+      <tr>
+        <td><%= pet.name %></td>
+        <td><%= pet.sex %></td>
+        <td><%= pet.datebirth %></td>
+        <td><%= pet.color %></td>
+        <td><%= pet.allergies %></td>
+        <td><%= pet.chroniccondition %></td>
+        <td><%= pet.observation %></td>
+        <td><%= pet.species.name %></td>
+        <td><%= pet.breed.name %></td>
+        <td><%= link_to 'Show', pet %></td>
+        <td><%= link_to 'Edit', edit_pet_path(pet) %></td>
+        <td><%= link_to 'Destroy', pet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<%= link_to 'Edit', edit_customer_path(@customer) %> |
+<%= link_to 'Back', customers_path %>

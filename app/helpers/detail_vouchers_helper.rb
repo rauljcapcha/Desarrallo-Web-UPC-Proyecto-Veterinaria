@@ -1,0 +1,2 @@
+module DetailVouchersHelper
+end

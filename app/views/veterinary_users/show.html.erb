@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nameuser:</strong>
+  <%= @veterinary_user.nameuser %>
+</p>
+
+<p>
+  <strong>Passworduser:</strong>
+  <%= @veterinary_user.passworduser %>
+</p>
+
+<%= link_to 'Edit', edit_veterinary_user_path(@veterinary_user) %> |
+<%= link_to 'Back', veterinary_users_path %>

@@ -1,0 +1,29 @@
+<%= form_for(@atention) do |f| %>
+  <% if @atention.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@atention.errors.count, "error") %> prohibited this atention from being saved:</h2>
+
+      <ul>
+      <% @atention.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :'Cita' %><br>
+    <%= f.text_field :veterinary_appointment_id %>
+  </div>
+  <div class="field">
+    <%= f.label :'Dueño' %><br>
+    <%= f.select :customer_id, options_for_select(Customer.all.map{|s|[s.name, s.id]}, selected_key = @atention.customer_id)%>
+  </div>
+  <div class="field">
+    <%= f.label :'Mascota' %><br>
+    <%= f.select :pet_id, options_for_select(Pet.all.map{|s|[s.name, s.id]}, selected_key = @atention.pet_id)%>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

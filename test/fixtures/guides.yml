@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  atention_id: 
+  service_id: 
+  total: 9.99
+
+two:
+  atention_id: 
+  service_id: 
+  total: 9.99

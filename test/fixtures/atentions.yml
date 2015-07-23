@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  veterinary_appointment_id: 
+  customer_id: 
+  pet_id: 
+
+two:
+  veterinary_appointment_id: 
+  customer_id: 
+  pet_id: 

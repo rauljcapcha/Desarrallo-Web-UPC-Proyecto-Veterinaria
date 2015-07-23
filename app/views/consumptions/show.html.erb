@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Atention:</strong>
+  <%= @consumption.atention.id %>
+</p>
+
+<p>
+  <strong>Service:</strong>
+  <%= @consumption.service.name %>
+</p>
+
+<p>
+  <strong>Guide:</strong>
+  <%= @consumption.guide.id %>
+</p>
+
+<p>
+  <strong>Unitprice:</strong>
+  <%= @consumption.unitprice %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @consumption.quantity %>
+</p>
+
+<p>
+  <strong>Subtotal:</strong>
+  <%= @consumption.subtotal %>
+</p>
+
+<%= link_to 'Edit', edit_consumption_path(@consumption) %> |
+<%= link_to 'Back', consumptions_path %>

@@ -1,0 +1,53 @@
+<%= form_for(@voucher) do |f| %>
+  <% if @voucher.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@voucher.errors.count, "error") %> prohibited this voucher from being saved:</h2>
+
+      <ul>
+      <% @voucher.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :voucher_type_id %><br>
+    <%= f.text_field :voucher_type_id %>
+  </div>
+  <div class="field">
+    <%= f.label :serialnumber %><br>
+    <%= f.text_field :serialnumber %>
+  </div>
+  <div class="field">
+    <%= f.label :vouchernumber %><br>
+    <%= f.text_field :vouchernumber %>
+  </div>
+  <div class="field">
+    <%= f.label :atention_id %><br>
+    <%= f.text_field :atention_id %>
+  </div>
+  <div class="field">
+    <%= f.label :customer_id %><br>
+    <%= f.text_field :customer_id %>
+  </div>
+  <div class="field">
+    <%= f.label :pet_id %><br>
+    <%= f.text_field :pet_id %>
+  </div>
+  <div class="field">
+    <%= f.label :total %><br>
+    <%= f.text_field :total %>
+  </div>
+  <div class="field">
+    <%= f.label :seller_id %><br>
+    <%= f.text_field :seller_id %>
+  </div>
+  <div class="field">
+    <%= f.label :datevoucher %><br>
+    <%= f.datetime_select :datevoucher %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

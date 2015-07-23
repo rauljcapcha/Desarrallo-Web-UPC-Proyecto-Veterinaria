@@ -1,0 +1,21 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  username: <%=ENV['C9_USER']%>
+  password:
+  host: <%=ENV['IP']%>
+
+development:
+  <<: *default
+  database: SystemVeterinary_development
+
+test:
+  <<: *default
+  database: SystemVeterinary_test
+
+production:
+  <<: *default
+  database: SystemVeterinary_production
+  username: SystemVeterinary
+  password: <%= ENV['SYSTEMVETERINARY_DATABASE_PASSWORD'] %>

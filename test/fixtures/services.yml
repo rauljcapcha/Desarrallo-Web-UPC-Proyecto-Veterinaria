@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  service_type_id: 
+  name: MyString
+  saleprice: 9.99
+
+two:
+  service_type_id: 
+  name: MyString
+  saleprice: 9.99

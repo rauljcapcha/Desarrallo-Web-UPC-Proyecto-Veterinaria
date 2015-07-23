@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Voucher type:</strong>
+  <%= @voucher.voucher_type %>
+</p>
+
+<p>
+  <strong>Serialnumber:</strong>
+  <%= @voucher.serialnumber %>
+</p>
+
+<p>
+  <strong>Vouchernumber:</strong>
+  <%= @voucher.vouchernumber %>
+</p>
+
+<p>
+  <strong>Atention:</strong>
+  <%= @voucher.atention %>
+</p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @voucher.customer %>
+</p>
+
+<p>
+  <strong>Pet:</strong>
+  <%= @voucher.pet %>
+</p>
+
+<p>
+  <strong>Total:</strong>
+  <%= @voucher.total %>
+</p>
+
+<p>
+  <strong>Seller:</strong>
+  <%= @voucher.seller %>
+</p>
+
+<p>
+  <strong>Datevoucher:</strong>
+  <%= @voucher.datevoucher %>
+</p>
+
+<%= link_to 'Edit', edit_voucher_path(@voucher) %> |
+<%= link_to 'Back', vouchers_path %>

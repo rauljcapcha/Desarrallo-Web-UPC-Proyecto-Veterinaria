@@ -1,0 +1,2 @@
+module VeterinaryUsersHelper
+end

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  guide_id: 
+  product_id: 
+  unitprice: 9.99
+  quantity: 9.99
+  subtotal: 9.99
+  note: MyText
+
+two:
+  guide_id: 
+  product_id: 
+  unitprice: 9.99
+  quantity: 9.99
+  subtotal: 9.99
+  note: MyText

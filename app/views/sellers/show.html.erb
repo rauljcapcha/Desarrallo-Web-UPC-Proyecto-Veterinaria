@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Employee:</strong>
+  <%= @seller.employee.name %>
+</p>
+
+<p>
+  <strong>Veterinary user:</strong>
+  <%= @seller.veterinary_user.nameuser %>
+</p>
+
+<p>
+  <strong>Observation:</strong>
+  <%= @seller.observation %>
+</p>
+
+<%= link_to 'Edit', edit_seller_path(@seller) %> |
+<%= link_to 'Back', sellers_path %>

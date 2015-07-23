@@ -1,0 +1,46 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Atention:</strong>
+  <%= @guide.atention.id %>
+</p>
+
+<p>
+  <strong>Service:</strong>
+  <%= @guide.service.name %>
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Guide</th>
+      <th>Product</th>
+      <th>Unitprice</th>
+      <th>Quantity</th>
+      <th>Subtotal</th>
+      <th>Note</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @guide.detail_guides.each do |detail_guide| %>
+      <tr>
+        <td><%= detail_guide.guide.id %></td>
+        <td><%= detail_guide.product.name %></td>
+        <td><%= detail_guide.unitprice %></td>
+        <td><%= detail_guide.quantity %></td>
+        <td><%= detail_guide.subtotal %></td>
+        <td><%= detail_guide.note %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p>
+  <strong>Total:</strong>
+  <%= @guide.total %>
+</p>
+
+<%= link_to 'Edit', edit_guide_path(@guide) %> |
+<%= link_to 'Back', guides_path %>

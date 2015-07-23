@@ -1,0 +1,37 @@
+<%= form_for(@employee) do |f| %>
+  <% if @employee.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@employee.errors.count, "error") %> prohibited this employee from being saved:</h2>
+
+      <ul>
+      <% @employee.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :'Tipo de Documento de Identidad' %><br>
+    <%= f.select :document_type_id, options_for_select(DocumentType.all.map{|s|[s.name, s.id]}, selected_key = @employee.document_type_id)%>
+  </div>
+  <div class="field">
+    <%= f.label :documentnumber %><br>
+    <%= f.text_field :documentnumber %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :lastname %><br>
+    <%= f.text_field :lastname %>
+  </div>
+  <div class="field">
+    <%= f.label :motherslastname %><br>
+    <%= f.text_field :motherslastname %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SystemVeterinary</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div>
+	<li class="menu">
+		<%= link_to 'Incio', veterinary_appointments_path %>
+	</li>
+	<li class="menu">
+		<%= link_to 'Menu', "" %>
+		<ul class="submenu">
+			<li><%= link_to 'Clientes', customers_path %></li>
+			<li><%= link_to 'Mascotas', pets_path %></li>
+			<li><%= link_to 'Citas', veterinary_appointments_path %></li>
+			<li><%= link_to 'Atenciones', atentions_path %></li>
+			<li><%= link_to 'Consumos de Atención', consumptions_path %></li>
+			<li><%= link_to 'Servicios', services_path %></li>
+			<li><%= link_to 'Productos', products_path %></li>
+			<li><%= link_to 'Guias de Productos', guides_path %></li>
+			<li><%= link_to 'Detalle de Guias', detail_guides_path %></li>
+			<li><%= link_to 'Ventas', vouchers_path %></li>
+			<li><%= link_to 'Detalle de Ventas', detail_vouchers_path %></li>
+		</ul>
+		<%= link_to 'Tablas Maestras', "" %>
+		<ul class="submenu">
+			<li><%= link_to 'Especies', species_index_path %></li>
+			<li><%= link_to 'Razas', breeds_path %></li>
+			<li><%= link_to 'Tipos de Servicios', service_types_path %></li>
+			<li><%= link_to 'Tipos de Productos', product_types_path %></li>
+			<li><%= link_to 'Proveedores', providers_path %></li>
+			<li><%= link_to 'Tipo de Documento de Identidad', document_types_path %></li>
+			<li><%= link_to 'Empleados', employees_path %></li>
+			<li><%= link_to 'Vendedores', sellers_path %></li>
+			<li><%= link_to 'Usuarios', veterinary_users_path %></li>
+		</ul>
+	</li>
+</div>
+
+<div>
+  <%= yield %>  
+</div>
+
+</body>
+</html>

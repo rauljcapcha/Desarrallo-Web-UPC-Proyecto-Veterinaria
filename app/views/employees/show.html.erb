@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Document type:</strong>
+  <%= @employee.document_type.name %>
+</p>
+
+<p>
+  <strong>Documentnumber:</strong>
+  <%= @employee.documentnumber %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @employee.name %>
+</p>
+
+<p>
+  <strong>Lastname:</strong>
+  <%= @employee.lastname %>
+</p>
+
+<p>
+  <strong>Motherslastname:</strong>
+  <%= @employee.motherslastname %>
+</p>
+
+<%= link_to 'Edit', edit_employee_path(@employee) %> |
+<%= link_to 'Back', employees_path %>

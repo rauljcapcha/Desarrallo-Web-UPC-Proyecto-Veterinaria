@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  voucher_id: 
+  service_id: 
+  guide_id: 
+  unitprice: 9.99
+  quantity: 9.99
+  subtotal: 9.99
+
+two:
+  voucher_id: 
+  service_id: 
+  guide_id: 
+  unitprice: 9.99
+  quantity: 9.99
+  subtotal: 9.99

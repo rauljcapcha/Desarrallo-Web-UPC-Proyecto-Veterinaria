@@ -1,0 +1,46 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Veterinary appointment:</strong>
+  <%= @atention.veterinary_appointment.id %>
+</p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @atention.customer.name %>
+</p>
+
+<p>
+  <strong>Pet:</strong>
+  <%= @atention.pet.name %>
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Service</th>
+      <th>Guide</th>
+      <th>Unitprice</th>
+      <th>Quantity</th>
+      <th>Subtotal</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @atention.consumptions.each do |consumption| %>
+      <tr>
+        <td><%= consumption.id %></td>
+        <td><%= consumption.service.name %></td>
+        <td><%= consumption.guide.id %></td>
+        <td><%= consumption.unitprice %></td>
+        <td><%= consumption.quantity %></td>
+        <td><%= consumption.subtotal %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Edit', edit_atention_path(@atention) %> |
+<%= link_to 'Back', atentions_path %>

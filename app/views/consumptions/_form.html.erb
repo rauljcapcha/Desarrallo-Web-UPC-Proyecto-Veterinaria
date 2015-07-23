@@ -1,0 +1,41 @@
+<%= form_for(@consumption) do |f| %>
+  <% if @consumption.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@consumption.errors.count, "error") %> prohibited this consumption from being saved:</h2>
+
+      <ul>
+      <% @consumption.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :'N° Atención' %><br>
+    <%= f.select :atention_id, options_for_select(Atention.all.map{|s|[s.id, s.id]}, selected_key = @consumption.atention_id)%>
+  </div>
+  <div class="field">
+    <%= f.label :'Servicio' %><br>
+    <%= f.select :service_id, options_for_select(Service.all.map{|s|[s.name, s.id]}, selected_key = @consumption.service_id)%>
+  </div>
+  <div class="field">
+    <%= f.label :'N° Guía' %><br>
+    <%= f.select :guide_id, options_for_select(Guide.all.map{|s|[s.id, s.id]}, selected_key = @consumption.guide_id)%>
+  </div>
+  <div class="field">
+    <%= f.label :unitprice %><br>
+    <%= f.text_field :unitprice %>
+  </div>
+  <div class="field">
+    <%= f.label :quantity %><br>
+    <%= f.text_field :quantity %>
+  </div>
+  <div class="field">
+    <%= f.label :subtotal %><br>
+    <%= f.text_field :subtotal %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

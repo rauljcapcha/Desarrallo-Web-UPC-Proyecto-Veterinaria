@@ -1,0 +1,33 @@
+<%= form_for(@veterinary_appointment) do |f| %>
+  <% if @veterinary_appointment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@veterinary_appointment.errors.count, "error") %> prohibited this veterinary_appointment from being saved:</h2>
+
+      <ul>
+      <% @veterinary_appointment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :'Dueño' %><br>
+    <%= f.select :customer_id, options_for_select(Customer.all.map{|s|[s.name, s.id]}, selected_key = @veterinary_appointment.customer_id)%>
+  </div>
+  <div class="field">
+    <%= f.label :'Mascota' %><br>
+    <%= f.select :pet_id, options_for_select(Pet.all.map{|s|[s.name, s.id]}, selected_key = @veterinary_appointment.pet_id)%>
+  </div>
+  <div class="field">
+    <%= f.label :dateappointment %><br>
+    <%= f.datetime_select :dateappointment %>
+  </div>
+  <div class="field">
+    <%= f.label :note %><br>
+    <%= f.text_field :note %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
