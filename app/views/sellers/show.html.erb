@@ -2,17 +2,12 @@
 
 <p>
   <strong>Employee:</strong>
-  <%= @seller.employee.name %>
+  <%= @seller.employee %>
 </p>
 
 <p>
-  <strong>Veterinary user:</strong>
-  <%= @seller.veterinary_user.nameuser %>
-</p>
-
-<p>
-  <strong>Observation:</strong>
-  <%= @seller.observation %>
+  <strong>User:</strong>
+  <%= @seller.user %>
 </p>
 
 <%= link_to 'Edit', edit_seller_path(@seller) %> |

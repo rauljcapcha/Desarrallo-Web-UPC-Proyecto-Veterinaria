@@ -1,0 +1,6 @@
+$("#myupdate_atention_<%= @atention.id %>").modal('hide');
+
+$("#atention_<%= @atention.id %>").fadeOut(500, function(){
+    $(this).remove();
+    $("#calendar").prepend('<%= j render partial: 'atention', locals: {atention: @atention} %>');
+});

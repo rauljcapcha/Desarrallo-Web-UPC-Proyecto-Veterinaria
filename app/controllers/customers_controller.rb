@@ -1,10 +1,16 @@
 class CustomersController < ApplicationController
+  include ModelPaginator
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
 
   # GET /customers
   # GET /customers.json
   def index
-    @customers = Customer.all
+    #@customers = Customer.all
+    if params[:search]
+      @customers = paginate(Customer.search(params[:search]).order("id ASC"))
+    else
+      @customers = paginate(Customer.all.order('id ASC'))
+    end
   end
 
   # GET /customers/1

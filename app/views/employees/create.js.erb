@@ -1,0 +1,8 @@
+$("#mynewemployee").modal('hide');
+$(".employee_documentnumber").val('');
+$(".employee_name").val('');
+$(".employee_lastname").val('');
+$(".employee_motherslastname").val('');
+
+$("#container_employees").prepend('<%= j render @employee %>');
+

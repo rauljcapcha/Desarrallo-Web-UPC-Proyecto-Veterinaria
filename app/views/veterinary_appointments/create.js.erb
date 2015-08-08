@@ -1,0 +1,5 @@
+$(".veterinary_appointment_note").val('');
+
+$("#mynewveterinary_appointment").modal('hide');
+
+$("#calendar").prepend('<%= j render partial: 'veterinary_appointment', locals: {veterinary_appointment: @veterinary_appointment} %>');

@@ -1,0 +1,80 @@
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Gestión de Veterinarias</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><%= link_to "Inicio", root_path %></li>
+                    <li><%= link_to "Servicios", ourservices_path %></li>
+                    <% if logged_in? %>
+                    <%if current_user.user_type_id == 3%>
+                    <li><%= link_to 'Citas', veterinary_appointments_path%></li>
+                    <%else%>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu Principal <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><%= link_to 'Clientes', customers_path%></li>
+                            <!-- <li>%= link_to 'Mascotas', pets_path%></li> -->
+                            <li><%= link_to 'Citas', veterinary_appointments_path%></li>
+                            <li><%= link_to 'Atenciones', atentions_path%></li>
+                            <li><%= link_to 'Consumos', consumptions_path%></li>
+                            <li><%= link_to 'Servicios', services_path%></li>
+                            <li><%= link_to 'Productos', products_path%></li>
+                            <li><%= link_to 'Guías de Productos', guides_path%></li>
+                            <li><%= link_to 'Detalle de Guía', detail_guides_path%></li>
+                            <li><%= link_to 'Comprobantes', vouchers_path%></li>
+                            <li><%= link_to 'Detalle de Comprobante', detail_vouchers_path%></li>
+                        </ul>
+                    </li>
+                    <%end%>
+                    <%if current_user.user_type_id != 3%>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tablas Maestras <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><%= link_to 'Especies', species_index_path%></li>
+                            <li><%= link_to 'Razas', breeds_path%></li>
+                            <li><%= link_to 'Tipos de Servicios', service_types_path%></li>
+                            <li><%= link_to 'Tipos de Productos', product_types_path%></li>
+                            <li><%= link_to 'Proveedores', providers_path%></li>
+                            <li><%= link_to 'Tipo de Documento de Identidad', document_types_path%></li>
+                            <li><%= link_to 'Tipos de Comprobantes', voucher_types_path%></li>
+                            <li><%= link_to 'Empleados', employees_path%></li>
+                            <li><%= link_to 'Vendedores', sellers_path%></li>
+                            <li><%= link_to 'Usuarios', users_path%></li>
+                            <li><%= link_to 'Tipos de Usuarios', user_types_path%></li>
+
+                        </ul>
+                    </li>
+                    <%end%>
+                    <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <%= current_user.email%> <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                      <li><%= link_to "Perfil", current_user %></li>
+                      <%if current_user.user_type_id != 3%>
+                      <li><%= link_to "Configuración", edit_user_path(current_user) %></li>
+                      <%end%>
+                      <li class="divider"></li>
+                      <li>
+                        <%= link_to "Cerrar Sesión", logout_path, method: "delete" %>
+                      </li>
+                    </ul>
+                    </li>
+                    <% else %>
+                      <li><%= link_to "Iniciar Sesión", login_path %></li>
+                    <% end %>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>

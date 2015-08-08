@@ -4,12 +4,16 @@ class VeterinaryAppointmentsController < ApplicationController
   # GET /veterinary_appointments
   # GET /veterinary_appointments.json
   def index
-    @veterinary_appointments = VeterinaryAppointment.all
+  	@veterinary_appointments = VeterinaryAppointment.where("status = 0 ") 
+  	@date = params[:month] ? Date.parse(params[:month]) : Date.today
+  	@veterinary_appointment = VeterinaryAppointment.new
   end
 
   # GET /veterinary_appointments/1
   # GET /veterinary_appointments/1.json
   def show
+    @atention = Atention.new
+    @atention.veterinary_appointment = @veterinary_appointment
   end
 
   # GET /veterinary_appointments/new
@@ -30,9 +34,11 @@ class VeterinaryAppointmentsController < ApplicationController
       if @veterinary_appointment.save
         format.html { redirect_to @veterinary_appointment, notice: 'Veterinary appointment was successfully created.' }
         format.json { render :show, status: :created, location: @veterinary_appointment }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @veterinary_appointment.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -44,9 +50,11 @@ class VeterinaryAppointmentsController < ApplicationController
       if @veterinary_appointment.update(veterinary_appointment_params)
         format.html { redirect_to @veterinary_appointment, notice: 'Veterinary appointment was successfully updated.' }
         format.json { render :show, status: :ok, location: @veterinary_appointment }
+        format.js
       else
         format.html { render :edit }
         format.json { render json: @veterinary_appointment.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -58,6 +66,7 @@ class VeterinaryAppointmentsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to veterinary_appointments_url, notice: 'Veterinary appointment was successfully destroyed.' }
       format.json { head :no_content }
+      format.js
     end
   end
 
@@ -69,6 +78,6 @@ class VeterinaryAppointmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def veterinary_appointment_params
-      params.require(:veterinary_appointment).permit(:customer_id, :pet_id, :dateappointment, :note)
+      params.require(:veterinary_appointment).permit(:customer_id, :pet_id, :date, :note, :status)
     end
 end

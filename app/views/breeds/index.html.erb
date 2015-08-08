@@ -1,29 +1,48 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Breed -%>
 
-<h1>Listing Breeds</h1>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  
+  <%= form_tag(breeds_path, :method => "get", id: "search-form") do %>
+    <%= text_field_tag :search, params[:search], placeholder: "Raza", :class => 'form-control' %>
+    <%= submit_tag "Search", :name => nil, :class => 'btn btn-primary' %>
+  <% end %>
+  
+</div>
 
-<table>
+<div class="table-responsive">
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Species</th>
-      <th colspan="3"></th>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:species_id) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
-
   <tbody>
     <% @breeds.each do |breed| %>
       <tr>
+        <td><%= link_to breed.id, breed_path(breed) %></td>
         <td><%= breed.name %></td>
-        <td><%= breed.species.name %></td>
-        <td><%= link_to 'Show', breed %></td>
-        <td><%= link_to 'Edit', edit_breed_path(breed) %></td>
-        <td><%= link_to 'Destroy', breed, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= breed.species_id %></td>
+        <td><%=l breed.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_breed_path(breed), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      breed_path(breed),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
+</div>
 <br>
-
-<%= link_to 'New Breed', new_breed_path %>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_breed_path,
+            :class => 'btn btn-primary' %>

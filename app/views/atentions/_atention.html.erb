@@ -1,0 +1,68 @@
+<div class="calendar" id="atention_<%= atention.id %>">
+    
+      <%= link_to h(atention.customer.name + ' ' + atention.date.strftime("%I:%M%p")), atention_path(atention) %><br>
+
+<button class="btn btn-xs btn-success" data-toggle="modal" data-target="#myupdate_atention_<%= atention.id %>">
+    Editar
+</button>
+| 
+<%= link_to 'Eliminar', atention, method: :delete, data: { confirm: 'Eliminar?' }, :class => 'btn btn-xs btn-danger', remote: true %>
+
+
+<!-- Editar -->
+<%= form_for(atention, remote: true) do |f| %>
+  <!-- error -->
+    <% if atention.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(atention.errors.count, "error") %> prohibited this atention from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% atention.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+  <!-- error -->
+<!-- Modal -->
+<div class="modal fade" id="myupdate_atention_<%= atention.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">Modificar Atención</h4>
+            </div>
+            <div class="modal-body">
+                  <div class="field">
+                  <%= f.label :'N° de Cita', :class => 'control-label' %>
+                  <%= f.text_field :veterinary_appointment_id, :class => 'form-control atention_veterinary_appointment_id' %>
+                  </div>
+                  <div class="field">
+                    <%= f.label :'Cliente'%><br />
+                    <%= f.select :customer_id, options_for_select(Customer.all.map{|s|[s.name, s.id]}, selected_key = @atention.customer_id), :class => 'form-control' %>
+                    <!--%= f.text_field :customer_name, data: {autocomplete_source: Customer.order(:name).map(&:name)}, :class => 'form-control' %> -->
+                  </div>
+                  <div class="field">
+                    <%= f.label :'Mascota', :class => 'control-label' %>
+                    <%= f.select :pet_id, options_for_select(Pet.all.map{|s|[s.name, s.id]}, selected_key = @atention.pet_id), :class => 'form-control' %>
+                  </div>
+                  <div class="field">
+                    <%= f.label :date, :class => 'control-label' %>
+                    <%= f.datetime_local_field :date, :class => 'form-control' %>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                      <%= f.submit 'Actualizar', :class => 'btn btn-primary' %>
+                  </div>
+            </div>
+        <!-- /.modal-content -->
+      </div>
+    <!-- /.modal-dialog -->
+    </div>
+<!-- /.modal -->
+</div>
+<% end %>
+<!-- editar-->

@@ -14,7 +14,13 @@ class ConsumptionsController < ApplicationController
 
   # GET /consumptions/new
   def new
+    if params[:format].nil?
+      @atention = Atention.find(1)
+    else
+      @atention = Atention.find(params[:format])
+    end
     @consumption = Consumption.new
+    @consumption.guide = @atention
   end
 
   # GET /consumptions/1/edit

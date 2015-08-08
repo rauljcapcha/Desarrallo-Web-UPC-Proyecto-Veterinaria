@@ -1,29 +1,45 @@
-<%= form_for(@guide) do |f| %>
-  <% if @guide.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@guide.errors.count, "error") %> prohibited this guide from being saved:</h2>
+<%= form_for @guide, :html => { :class => "form-horizontal guide" } do |f| %>
 
-      <ul>
-      <% @guide.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <% if @guide.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@guide.errors.count, "error") %> prohibited this guide from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @guide.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :'N° Atención' %><br>
-    <%= f.select :atention_id, options_for_select(Atention.all.map{|s|[s.id, s.id]}, selected_key = @guide.atention_id)%>
+  <div class="control-group">
+    <%= f.label :atention_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :atention_id, :class => 'form-control' %>
+    </div>
+    <%= error_span(@guide[:atention_id]) %>
   </div>
-  <div class="field">
-    <%= f.label :'Servicio' %><br>
-    <%= f.select :service_id, options_for_select(Service.all.map{|s|[s.name, s.id]}, selected_key = @guide.service_id)%>
+  <div class="control-group">
+    <%= f.label :service_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :service_id, :class => 'form-control' %>
+    </div>
+    <%= error_span(@guide[:service_id]) %>
   </div>
-  <div class="field">
-    <%= f.label :total %><br>
-    <%= f.text_field :total %>
+  <div class="control-group">
+    <%= f.label :total, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :total, :class => 'form-control' %>
+    </div>
+    <%= error_span(@guide[:total]) %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            guides_path, :class => 'btn btn-default' %>
+
 <% end %>

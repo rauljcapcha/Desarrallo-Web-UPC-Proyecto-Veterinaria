@@ -1,0 +1,6 @@
+$("#myupdate_veterinary_appointment_<%= @veterinary_appointment.id %>").modal('hide');
+
+$("#veterinary_appointment_<%= @veterinary_appointment.id %>").fadeOut(500, function(){
+    $(this).remove();
+    $("#calendar").prepend('<%= j render partial: 'veterinary_appointment', locals: {veterinary_appointment: @veterinary_appointment} %>');
+});

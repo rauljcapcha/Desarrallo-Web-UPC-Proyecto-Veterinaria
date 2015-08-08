@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<div class="page-header">
+<h1>Usuario</h1>
+</div>
+<div class="table-responsive">
+  <table  class="table table-striped">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Tipo</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= link_to "Ver datos: #{user.id}", user, :class => 'btn btn-info' %></td>
+          <td><%= user.user_type.name %></td>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td>
+            <%= link_to 'Editar', edit_user_path(user), :class => 'btn btn-success' %>
+            <%= link_to 'Eliminar', user, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= link_to "Anterior", users_pagination_path(@page.to_i - 1, @pages_count), :class => 'btn btn-default' if @page > 1 %>
+<%= link_to "Inicio", users_pagination_path(1, @pages_count), :class => 'btn btn-default' %>
+<%= link_to "Siguiente", users_pagination_path(@page.to_i + 1), :class => 'btn btn-default' if @page < @pages_count %>
+<br>
+<%= link_to 'Nuevo', new_user_path, :class => 'btn btn-primary' %>
+

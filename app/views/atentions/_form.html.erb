@@ -1,29 +1,54 @@
-<%= form_for(@atention) do |f| %>
-  <% if @atention.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@atention.errors.count, "error") %> prohibited this atention from being saved:</h2>
+<%= form_for @atention, :html => { :class => "form-horizontal atention" } do |f| %>
 
-      <ul>
-      <% @atention.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <% if @atention.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@atention.errors.count, "error") %> prohibited this atention from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @atention.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :'Cita' %><br>
-    <%= f.text_field :veterinary_appointment_id %>
+  <div class="control-group">
+    <%= f.label :veterinary_appointment_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :veterinary_appointment_id, :class => 'form-control' %>
+    </div>
+    <%= error_span(@atention[:veterinary_appointment_id]) %>
   </div>
-  <div class="field">
-    <%= f.label :'Dueño' %><br>
-    <%= f.select :customer_id, options_for_select(Customer.all.map{|s|[s.name, s.id]}, selected_key = @atention.customer_id)%>
+  
+  <div class="control-group">
+    <%= f.label :'Cliente'%><br />
+      <div class="controls">
+          <%= f.select :customer_id, options_for_select(Customer.all.map{|s|[s.name, s.id]}, selected_key = @atention.customer_id), :class => 'form-control' %>
+          <!--%= f.text_field :customer_name, data: {autocomplete_source: Customer.order(:name).map(&:name)}, :class => 'form-control' %> -->
+      </div>
   </div>
-  <div class="field">
-    <%= f.label :'Mascota' %><br>
-    <%= f.select :pet_id, options_for_select(Pet.all.map{|s|[s.name, s.id]}, selected_key = @atention.pet_id)%>
+  
+  <div class="control-group">
+    <%= f.label :'Mascota', :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :pet_id, options_for_select(Pet.all.map{|s|[s.name, s.id]}, selected_key = @atention.pet_id), :class => 'form-control' %>
+    </div>
+    <%= error_span(@atention[:pet_id]) %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="control-group">
+    <%= f.label :date, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.datetime_local_field :date, :class => 'form-control' %>
+    </div>
+    <%= error_span(@atention[:date]) %>
   </div>
+
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            atentions_path, :class => 'btn btn-default' %>
+
 <% end %>

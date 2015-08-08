@@ -1,33 +1,36 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Guides</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>N° Guía</th>
-      <th>N° Atention</th>
-      <th>Service</th>
-      <th>Total</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<%- model_class = Guide -%>
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header"> Guías de Productos </h1>
+          <%= link_to 'Crear Nueva Guía', new_guide_path, :class => 'btn btn-success' %>
+        <h1></h1>
+        <br>
+    </div>
     <% @guides.each do |guide| %>
-      <tr>
-        <td><%= guide.id %></td>
-        <td><%= guide.atention.id %></td>
-        <td><%= guide.service.name %></td>
-        <td><%= guide.total %></td>
-        <td><%= link_to 'Show', guide %></td>
-        <td><%= link_to 'Edit', edit_guide_path(guide) %></td>
-        <td><%= link_to 'Destroy', guide, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <div class="col-md-4">
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h4><i class="fa fa-fw fa-check"></i><%= 'Guía de Productos N° ' + guide.id.to_s %></h4>
+              </div>
+              <div class="panel-body">
+                <dt><strong></strong></dt>
+                <dt><strong>Atención N°:</strong></dt>
+                <dd><%= guide.atention_id %></dd>
+                <dt><strong>Servicio:</strong></dt>
+                <dd><%= guide.service.name %></dd>
+                <dt><strong>Importe Total:</strong></dt>
+                <dd><%= guide.total %></dd>
+                <dt><strong>Fecha de Guía:</strong></dt>
+                <dd><%= l guide.created_at %></dd>
+                <br>
+                <%= link_to "Ver datos: #{guide.id}", guide_path(guide), :class => 'btn btn-info' %>
+                <%= link_to 'Editar', edit_guide_path(guide), :class => 'btn btn-success' %>
+                <%= link_to 'Eliminar', guide_path(guide),
+                            :method => :delete,
+                            :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                            :class => 'btn btn-danger' %>
+              </div>
+          </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Guide', new_guide_path %>
+</div>

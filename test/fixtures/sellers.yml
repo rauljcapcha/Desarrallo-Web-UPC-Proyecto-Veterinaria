@@ -2,10 +2,8 @@
 
 one:
   employee_id: 
-  veterinary_user_id: 
-  observation: MyString
+  user_id: 
 
 two:
   employee_id: 
-  veterinary_user_id: 
-  observation: MyString
+  user_id: 

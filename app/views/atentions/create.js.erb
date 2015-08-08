@@ -1,0 +1,9 @@
+$(".atention_veterinary_appointment_id").val('');
+
+$("#mynewatention").modal('hide');
+
+$("#calendar").prepend('<%= j render partial: 'atention', locals: {atention: @atention} %>');
+
+$("#mynewatencion").modal('hide');
+
+$("#container_atencion").prepend('<%= j render partial: 'atention', locals: {atention: @atention} %>');

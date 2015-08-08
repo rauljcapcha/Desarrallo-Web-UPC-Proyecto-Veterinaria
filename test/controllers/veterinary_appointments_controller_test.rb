@@ -18,7 +18,7 @@ class VeterinaryAppointmentsControllerTest < ActionController::TestCase
 
   test "should create veterinary_appointment" do
     assert_difference('VeterinaryAppointment.count') do
-      post :create, veterinary_appointment: { customer_id: @veterinary_appointment.customer_id, dateappointment: @veterinary_appointment.dateappointment, note: @veterinary_appointment.note, pet_id: @veterinary_appointment.pet_id }
+      post :create, veterinary_appointment: { customer_id: @veterinary_appointment.customer_id, date: @veterinary_appointment.date, note: @veterinary_appointment.note, pet_id: @veterinary_appointment.pet_id }
     end
 
     assert_redirected_to veterinary_appointment_path(assigns(:veterinary_appointment))
@@ -35,7 +35,7 @@ class VeterinaryAppointmentsControllerTest < ActionController::TestCase
   end
 
   test "should update veterinary_appointment" do
-    patch :update, id: @veterinary_appointment, veterinary_appointment: { customer_id: @veterinary_appointment.customer_id, dateappointment: @veterinary_appointment.dateappointment, note: @veterinary_appointment.note, pet_id: @veterinary_appointment.pet_id }
+    patch :update, id: @veterinary_appointment, veterinary_appointment: { customer_id: @veterinary_appointment.customer_id, date: @veterinary_appointment.date, note: @veterinary_appointment.note, pet_id: @veterinary_appointment.pet_id }
     assert_redirected_to veterinary_appointment_path(assigns(:veterinary_appointment))
   end
 

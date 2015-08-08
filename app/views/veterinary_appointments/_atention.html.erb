@@ -1,0 +1,7 @@
+<tr>
+    <td><%= link_to 'Ver Atención N°: ' + atention.id.to_s, atention_path(atention), :class => 'btn btn-info btn-xs' %></td>
+    <td><%= atention.customer.name %></td>
+    <td><%= atention.pet.name%></td>
+    <td><%= atention.date %></td>
+    <td><%= link_to 'Eliminar', atention, method: :delete, data: { confirm: 'Eliminar?' }, :class => 'btn btn-xs btn-danger', remote: true %></td>
+</tr>

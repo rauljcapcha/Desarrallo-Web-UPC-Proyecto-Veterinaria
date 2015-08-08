@@ -18,7 +18,7 @@ class VouchersControllerTest < ActionController::TestCase
 
   test "should create voucher" do
     assert_difference('Voucher.count') do
-      post :create, voucher: { atention_id: @voucher.atention_id, customer_id: @voucher.customer_id, datevoucher: @voucher.datevoucher, pet_id: @voucher.pet_id, seller_id: @voucher.seller_id, serialnumber: @voucher.serialnumber, total: @voucher.total, voucher_type_id: @voucher.voucher_type_id, vouchernumber: @voucher.vouchernumber }
+      post :create, voucher: { atention_id: @voucher.atention_id, customer_id: @voucher.customer_id, pet_id: @voucher.pet_id, seller_id: @voucher.seller_id, serialnumber: @voucher.serialnumber, total: @voucher.total, voucher_type_id: @voucher.voucher_type_id, vouchernumber: @voucher.vouchernumber }
     end
 
     assert_redirected_to voucher_path(assigns(:voucher))
@@ -35,7 +35,7 @@ class VouchersControllerTest < ActionController::TestCase
   end
 
   test "should update voucher" do
-    patch :update, id: @voucher, voucher: { atention_id: @voucher.atention_id, customer_id: @voucher.customer_id, datevoucher: @voucher.datevoucher, pet_id: @voucher.pet_id, seller_id: @voucher.seller_id, serialnumber: @voucher.serialnumber, total: @voucher.total, voucher_type_id: @voucher.voucher_type_id, vouchernumber: @voucher.vouchernumber }
+    patch :update, id: @voucher, voucher: { atention_id: @voucher.atention_id, customer_id: @voucher.customer_id, pet_id: @voucher.pet_id, seller_id: @voucher.seller_id, serialnumber: @voucher.serialnumber, total: @voucher.total, voucher_type_id: @voucher.voucher_type_id, vouchernumber: @voucher.vouchernumber }
     assert_redirected_to voucher_path(assigns(:voucher))
   end
 

@@ -6,8 +6,7 @@
   <thead>
     <tr>
       <th>Employee</th>
-      <th>Veterinary user</th>
-      <th>Observation</th>
+      <th>User</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -15,9 +14,8 @@
   <tbody>
     <% @sellers.each do |seller| %>
       <tr>
-        <td><%= seller.employee.name %></td>
-        <td><%= seller.veterinary_user.nameuser %></td>
-        <td><%= seller.observation %></td>
+        <td><%= seller.employee %></td>
+        <td><%= seller.user %></td>
         <td><%= link_to 'Show', seller %></td>
         <td><%= link_to 'Edit', edit_seller_path(seller) %></td>
         <td><%= link_to 'Destroy', seller, method: :delete, data: { confirm: 'Are you sure?' } %></td>

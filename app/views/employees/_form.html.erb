@@ -1,37 +1,58 @@
-<%= form_for(@employee) do |f| %>
-  <% if @employee.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@employee.errors.count, "error") %> prohibited this employee from being saved:</h2>
+<%= form_for @employee, :html => { :class => "form-horizontal employee" } do |f| %>
 
-      <ul>
-      <% @employee.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <% if @employee.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@employee.errors.count, "error") %> prohibited this employee from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @employee.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :'Tipo de Documento de Identidad' %><br>
-    <%= f.select :document_type_id, options_for_select(DocumentType.all.map{|s|[s.name, s.id]}, selected_key = @employee.document_type_id)%>
+  <div class="control-group">
+    <%= f.label :'Tipo de Documento de Identidad', :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :document_type_id, options_for_select(DocumentType.all.map{|s|[s.name, s.id]}, selected_key = @employee.document_type_id), :class => 'form-control' %>
+    </div>
+    <%= error_span(@employee[:document_type_id]) %>
   </div>
-  <div class="field">
-    <%= f.label :documentnumber %><br>
-    <%= f.text_field :documentnumber %>
+  <div class="control-group">
+    <%= f.label :'N° de Documento', :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :documentnumber, :class => 'form-control' %>
+    </div>
+    <%= error_span(@employee[:documentnumber]) %>
   </div>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="control-group">
+    <%= f.label :'Nombres', :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'form-control' %>
+    </div>
+    <%= error_span(@employee[:name]) %>
   </div>
-  <div class="field">
-    <%= f.label :lastname %><br>
-    <%= f.text_field :lastname %>
+  <div class="control-group">
+    <%= f.label :'Apellido Paterno', :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :lastname, :class => 'form-control' %>
+    </div>
+    <%= error_span(@employee[:lastname]) %>
   </div>
-  <div class="field">
-    <%= f.label :motherslastname %><br>
-    <%= f.text_field :motherslastname %>
+  <div class="control-group">
+    <%= f.label :'Apellido Materno', :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :motherslastname, :class => 'form-control' %>
+    </div>
+    <%= error_span(@employee[:motherslastname]) %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")), employees_path, :class => 'btn btn-default' %>
+
 <% end %>

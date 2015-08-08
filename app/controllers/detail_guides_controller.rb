@@ -14,7 +14,13 @@ class DetailGuidesController < ApplicationController
 
   # GET /detail_guides/new
   def new
+    if params[:format].nil?
+      @guide = Guide.find(1)
+    else
+      @guide = Guide.find(params[:format])
+    end
     @detail_guide = DetailGuide.new
+    @detail_guide.guide = @guide
   end
 
   # GET /detail_guides/1/edit

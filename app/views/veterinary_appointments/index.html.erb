@@ -1,35 +1,86 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = VeterinaryAppointment -%>
+<div class="page-header">
+  <h1>Citas Programadas</h1>
+  <!-- Button trigger modal -->
+  <button class="btn btn-lg btn-success btn-block" data-toggle="modal" data-target="#mynewveterinary_appointment">
+    Crear Nueva Cita
+  </button>
+</div>
 
-<h1>Listing Veterinary Appointments</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Id Cita</th>
-      <th>Customer</th>
-      <th>Pet</th>
-      <th>Dateappointment</th>
-      <th>Note</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @veterinary_appointments.each do |veterinary_appointment| %>
-      <tr>
-        <td><%= veterinary_appointment.id %></td>
-        <td><%= veterinary_appointment.customer.name %></td>
-        <td><%= veterinary_appointment.pet.name %></td>
-        <td><%= veterinary_appointment.dateappointment %></td>
-        <td><%= veterinary_appointment.note %></td>
-        <td><%= link_to 'Show', veterinary_appointment %></td>
-        <td><%= link_to 'Edit', edit_veterinary_appointment_path(veterinary_appointment) %></td>
-        <td><%= link_to 'Destroy', veterinary_appointment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<div class="container" id="calendar">
+    <h2 id="month">
+    	<%= link_to "<", :month => (@date.beginning_of_month - 1).strftime("%Y-%m-%d"), :class => 'btn btn-default' %>
+    	<%=h @date.strftime("%B %Y") %>
+    	<%= link_to ">", :month => (@date.end_of_month + 1).strftime("%Y-%m-%d"), :class => 'btn btn-default' %>
+    </h2>
+    <%= calendar_for @veterinary_appointments, :year => @date.year, :month => @date.month do |veterinary_calendar| %>
+      	<%= veterinary_calendar.head('DOM','LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB') %>
+      	<%= veterinary_calendar.day do |day, veterinary_appointments| %>
+      	<%= day.day %>
+        		<% veterinary_appointments.each do |appointment| %><br>
+        			  <%= render partial: 'veterinary_appointment', locals: {veterinary_appointment: appointment} %>
+        		<% end %>
+      	<% end %>
     <% end %>
-  </tbody>
-</table>
+</div>
 
-<br>
-
-<%= link_to 'New Veterinary appointment', new_veterinary_appointment_path %>
+<!-- Crear nuevo -->
+<%= form_for(@veterinary_appointment, remote: true) do |f| %>
+    <!-- error -->
+    <% if @veterinary_appointment.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@veterinary_appointment.errors.count, "error") %> prohibited this veterinary_appointment from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @veterinary_appointment.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+  <!-- error -->
+<!-- Modal -->
+<div class="modal fade" id="mynewveterinary_appointment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">Nueva Cita</h4>
+            </div>
+            <div class="modal-body">
+                <div class="field">
+                  <%= f.label :'Cliente', :class => 'control-label' %>
+                  <%= f.select :customer_id, options_for_select(Customer.all.map{|s|[s.name, s.id]}, selected_key = @veterinary_appointment.customer_id), :class => 'form-control veterinary_appointment_customer_id' %>
+                </div>
+                <div class="field">
+                  <%= f.label :'Mascota', :class => 'control-label' %>
+                  <%= f.select :pet_id, options_for_select(Pet.all.map{|s|[s.name, s.id]}, selected_key = @veterinary_appointment.pet_id), :class => 'form-control veterinary_appointment_pet_id' %>
+                </div>
+                <div class="field">
+                  <%= f.label :'Fecha y Hora', :class => 'control-label' %>
+                  <%= f.datetime_local_field :date, :class => 'form-control veterinary_appointment_date' %>
+                </div>
+                <div class="field">
+                  <%= f.label :'Nota', :class => 'control-label' %>
+                  <%= f.text_field :note, :class => 'form-control veterinary_appointment_note' %>
+                </div>
+                <div class="field">
+                  <%= f.label :'Estado de Cita', :class => 'control-label' %>
+                  Estado <%= f.check_box :status, :class => 'form-control veterinary_appointment_status'  %>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <%= f.submit 'Crear', :class => 'btn btn-primary' %>
+                </div>
+             </div> 
+          </div>
+          <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<% end %>
+<!-- Crear nuevo -->

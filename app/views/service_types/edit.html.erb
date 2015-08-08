@@ -1,6 +1,6 @@
-<h1>Editing Service Type</h1>
+<%- model_class = ServiceType -%>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @service_type %> |
-<%= link_to 'Back', service_types_path %>
+<div class="page-header">
+  <h1><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h1>
+</div>
+<%= render :partial => 'form' %>

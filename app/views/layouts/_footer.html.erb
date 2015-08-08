@@ -1,0 +1,44 @@
+<style type="text/css">
+  footer {
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 1px solid #eaeaea;
+  color: #999;
+}
+
+footer a {
+  color: #555;
+}
+
+footer a:hover {
+  background-color:white;
+  color: black;
+  
+}
+
+footer small {
+  float: left;
+}
+
+footer ul {
+  float: right;
+  list-style: none;
+}
+
+footer ul li {
+  float: left;
+  margin-left: 10px;
+}
+</style>
+<footer class="footer">
+  <small>
+    Realizado por Raúl J. Capcha Anco
+  </small>
+  <nav>
+    <ul>
+      <li><%= link_to "Acerca de Nosotros", about_path %></li>
+      <li>|</li>
+      <li><%= link_to "Contáctenos", contact_path %></li>
+    </ul>
+  </nav>
+</footer>

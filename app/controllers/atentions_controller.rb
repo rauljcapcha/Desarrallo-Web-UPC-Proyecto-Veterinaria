@@ -4,7 +4,9 @@ class AtentionsController < ApplicationController
   # GET /atentions
   # GET /atentions.json
   def index
-    @atentions = Atention.all
+  	@atentions = Atention.all.order('date asc')
+  	@date = params[:month] ? Date.parse(params[:month]) : Date.today
+  	@atention = Atention.new
   end
 
   # GET /atentions/1
@@ -15,6 +17,12 @@ class AtentionsController < ApplicationController
   # GET /atentions/new
   def new
     @atention = Atention.new
+    if params[:format].nil?
+      @veterinary_appointment = VeterinaryAppointment.find(1)
+    else
+      @veterinary_appointment = VeterinaryAppointment.find(params[:format])
+    end
+    @atention.veterinary_appointment = @veterinary_appointment
   end
 
   # GET /atentions/1/edit
@@ -30,9 +38,11 @@ class AtentionsController < ApplicationController
       if @atention.save
         format.html { redirect_to @atention, notice: 'Atention was successfully created.' }
         format.json { render :show, status: :created, location: @atention }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @atention.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -44,9 +54,11 @@ class AtentionsController < ApplicationController
       if @atention.update(atention_params)
         format.html { redirect_to @atention, notice: 'Atention was successfully updated.' }
         format.json { render :show, status: :ok, location: @atention }
+        format.js
       else
         format.html { render :edit }
         format.json { render json: @atention.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -58,6 +70,7 @@ class AtentionsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to atentions_url, notice: 'Atention was successfully destroyed.' }
       format.json { head :no_content }
+      format.js
     end
   end
 
@@ -69,6 +82,6 @@ class AtentionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def atention_params
-      params.require(:atention).permit(:veterinary_appointment_id, :customer_id, :pet_id)
+      params.require(:atention).permit(:veterinary_appointment_id, :customer_id, :pet_id, :date)
     end
 end

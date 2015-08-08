@@ -1,41 +1,66 @@
-<%= form_for(@consumption) do |f| %>
-  <% if @consumption.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@consumption.errors.count, "error") %> prohibited this consumption from being saved:</h2>
+<%= form_for @consumption, :html => { :class => "form-horizontal consumption" } do |f| %>
 
-      <ul>
-      <% @consumption.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <% if @consumption.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@consumption.errors.count, "error") %> prohibited this consumption from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @consumption.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :'N° Atención' %><br>
-    <%= f.select :atention_id, options_for_select(Atention.all.map{|s|[s.id, s.id]}, selected_key = @consumption.atention_id)%>
+  <div class="control-group">
+    <%= f.label :'N° de Atención', :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :atention_id, options_for_select(Atention.all.map{|s|[s.id, s.id]}, selected_key = @consumption.atention_id), :class => 'form-control' %>
+    </div>
+    <%= error_span(@consumption[:atention_id]) %>
   </div>
-  <div class="field">
-    <%= f.label :'Servicio' %><br>
-    <%= f.select :service_id, options_for_select(Service.all.map{|s|[s.name, s.id]}, selected_key = @consumption.service_id)%>
+  <div class="control-group">
+    <%= f.label :'Servicios', :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :service_id, options_for_select(Service.all.map{|s|[s.name, s.id]}, selected_key = @consumption.service_id), :class => 'form-control' %>
+    </div>
+    <%= error_span(@consumption[:service_id]) %>
   </div>
-  <div class="field">
-    <%= f.label :'N° Guía' %><br>
-    <%= f.select :guide_id, options_for_select(Guide.all.map{|s|[s.id, s.id]}, selected_key = @consumption.guide_id)%>
+  <div class="control-group">
+    <%= f.label :'N° de Guía', :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :guide_id, options_for_select(Guide.all.map{|s|[s.id, s.id]}, selected_key = @consumption.guide_id), :class => 'form-control' %>
+    </div>
+    <%= error_span(@consumption[:guide_id]) %>
   </div>
-  <div class="field">
-    <%= f.label :unitprice %><br>
-    <%= f.text_field :unitprice %>
+  <div class="control-group">
+    <%= f.label :unitprice, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :unitprice, :class => 'form-control' %>
+    </div>
+    <%= error_span(@consumption[:unitprice]) %>
   </div>
-  <div class="field">
-    <%= f.label :quantity %><br>
-    <%= f.text_field :quantity %>
+  <div class="control-group">
+    <%= f.label :quantity, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :quantity, :class => 'form-control' %>
+    </div>
+    <%= error_span(@consumption[:quantity]) %>
   </div>
-  <div class="field">
-    <%= f.label :subtotal %><br>
-    <%= f.text_field :subtotal %>
+  <div class="control-group">
+    <%= f.label :subtotal, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :subtotal, :class => 'form-control' %>
+    </div>
+    <%= error_span(@consumption[:subtotal]) %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            consumptions_path, :class => 'btn btn-default' %>
+
 <% end %>

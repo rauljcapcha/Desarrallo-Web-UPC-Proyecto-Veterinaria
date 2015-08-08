@@ -1,33 +1,52 @@
-<%= form_for(@product) do |f| %>
-  <% if @product.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+<%= form_for @product, :html => { :class => "form-horizontal product" } do |f| %>
 
-      <ul>
-      <% @product.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <% if @product.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @product.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :'Tipo de Producto' %><br>
-    <%= f.select :product_type_id, options_for_select(ProductType.all.map{|s|[s.name, s.id]}, selected_key = @product.product_type_id)%>
+  <div class="control-group">
+    <%= f.label :'Tipo de Producto', :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :product_type_id, options_for_select(ProductType.all.map{|s|[s.name, s.id]}, selected_key = @product.product_type_id), :class => 'form-control' %>
+    </div>
+    <%= error_span(@product[:product_type_id]) %>
   </div>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'form-control' %>
+    </div>
+    <%= error_span(@product[:name]) %>
   </div>
-  <div class="field">
-    <%= f.label :saleprice %><br>
-    <%= f.text_field :saleprice %>
+  <div class="control-group">
+    <%= f.label :saleprice, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :saleprice, :class => 'form-control' %>
+    </div>
+    <%= error_span(@product[:saleprice]) %>
   </div>
-  <div class="field">
-    <%= f.label :'Proveedor' %><br>
-    <%= f.select :provider_id, options_for_select(Provider.all.map{|s|[s.name, s.id]}, selected_key = @product.provider_id)%>
+  <div class="control-group">
+    <%= f.label :'Proveedor', :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :provider_id, options_for_select(Provider.all.map{|s|[s.name, s.id]}, selected_key = @product.provider_id), :class => 'form-control' %>
+    </div>
+    <%= error_span(@product[:provider_id]) %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            products_path, :class => 'btn btn-default' %>
+
 <% end %>

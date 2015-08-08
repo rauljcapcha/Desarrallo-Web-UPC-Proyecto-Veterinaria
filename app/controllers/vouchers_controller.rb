@@ -69,6 +69,6 @@ class VouchersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def voucher_params
-      params.require(:voucher).permit(:voucher_type_id, :serialnumber, :vouchernumber, :atention_id, :customer_id, :pet_id, :total, :seller_id, :datevoucher)
+      params.require(:voucher).permit(:voucher_type_id, :serialnumber, :vouchernumber, :atention_id, :customer_id, :pet_id, :total, :seller_id)
     end
 end

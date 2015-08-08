@@ -1,1 +1,1 @@
-json.extract! @veterinary_appointment, :id, :customer_id, :pet_id, :dateappointment, :note, :created_at, :updated_at
+json.extract! @veterinary_appointment, :id, :customer_id, :pet_id, :date, :note, :created_at, :updated_at, :status

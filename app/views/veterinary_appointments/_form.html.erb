@@ -1,33 +1,55 @@
-<%= form_for(@veterinary_appointment) do |f| %>
-  <% if @veterinary_appointment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@veterinary_appointment.errors.count, "error") %> prohibited this veterinary_appointment from being saved:</h2>
+<%= form_for @veterinary_appointment, :html => { :class => "form-horizontal veterinary_appointment" } do |f| %>
 
-      <ul>
-      <% @veterinary_appointment.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <% if @veterinary_appointment.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@veterinary_appointment.errors.count, "error") %> prohibited this veterinary_appointment from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @veterinary_appointment.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :'Dueño' %><br>
-    <%= f.select :customer_id, options_for_select(Customer.all.map{|s|[s.name, s.id]}, selected_key = @veterinary_appointment.customer_id)%>
+  <div class="control-group">
+    <%= f.label :'Cliente', :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :customer_id, options_for_select(Customer.all.map{|s|[s.name, s.id]}, selected_key = @veterinary_appointment.customer_id), :class => 'form-control' %>
+    </div>
+    <%= error_span(@veterinary_appointment[:customer_id]) %>
   </div>
-  <div class="field">
-    <%= f.label :'Mascota' %><br>
-    <%= f.select :pet_id, options_for_select(Pet.all.map{|s|[s.name, s.id]}, selected_key = @veterinary_appointment.pet_id)%>
+  <div class="control-group">
+    <%= f.label :'Mascota', :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :pet_id, options_for_select(Pet.all.map{|s|[s.name, s.id]}, selected_key = @veterinary_appointment.pet_id), :class => 'form-control' %>
+    </div>
+    <%= error_span(@veterinary_appointment[:pet_id]) %>
   </div>
-  <div class="field">
-    <%= f.label :dateappointment %><br>
-    <%= f.datetime_select :dateappointment %>
+  <div class="control-group">
+    <%= f.label :date, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.datetime_local_field :date, :class => 'form-control' %>
+    </div>
+    <%= error_span(@veterinary_appointment[:date]) %>
   </div>
-  <div class="field">
-    <%= f.label :note %><br>
-    <%= f.text_field :note %>
+  <div class="control-group">
+    <%= f.label :note, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :note, :class => 'form-control' %>
+    </div>
+    <%= error_span(@veterinary_appointment[:note]) %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="control-group">
+    Estado <%= f.check_box :status %>
+    <%= error_span(@veterinary_appointment[:status]) %>
   </div>
+
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")), veterinary_appointments_path, :class => 'btn btn-default' %>
+
 <% end %>

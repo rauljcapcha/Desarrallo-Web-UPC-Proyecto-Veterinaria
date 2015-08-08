@@ -1,0 +1,91 @@
+<div class="col-md-4" id="employee_<%= employee.id %>">
+    <div class="panel-info">
+        <div class="panel-heading">
+            <h4><i class="fa fa-fw fa-check"></i><%= employee.name %></h4>
+        </div>
+        <div class="panel-body">
+            <dt><strong></strong></dt>
+            <dt><strong>Tipo de Documento:</strong></dt>
+            <dd><%= employee.document_type.name %></dd>
+            <dt><strong>N° de Documento:</strong></dt>
+            <dd><%= employee.documentnumber %></dd>
+            <dt><strong>Nombres:</strong></dt>
+            <dd><%= employee.name %></dd>
+            <dt><strong>Apellido Paterno:</strong></dt>
+            <dd><%= employee.lastname %></dd>
+            <dt><strong>Apellido Materno:</strong></dt>
+            <dd><%= employee.motherslastname %></dd>
+            <br>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#myupdateemployee_<%= employee.id %>">
+                Editar
+            </button>
+            <%= link_to 'Eliminar Empleado',
+                          employee_path(employee),
+                          :method => 'delete',
+                          :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                          :class => 'btn btn-danger', remote: true %>
+        </div>
+    </div>
+
+
+    <!-- Editar -->
+    <%= form_for(employee, :method => :put, remote: true) do |f| %>
+  
+      <% if employee.errors.any? %>
+      <div id="error_expl" class="alert alert-danger">
+        <div class="panel-heading">
+          <h3 class="panel-title"><%= pluralize(employee.errors.count, "error") %> prohibited this employee from being saved:</h3>
+        </div>
+        <div class="panel-body">
+          <ul>
+          <% employee.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+  
+    <!-- Modal -->
+    <div class="modal fade" id="myupdateemployee_<%= employee.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">Nueva Especie</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="field">
+                    <%= f.label :'Tipo de Documento de Identidad', :class => 'control-label' %>
+                    <%= f.select :document_type_id, options_for_select(DocumentType.all.map{|s|[s.name, s.id]}, selected_key = employee.document_type_id), :class => 'form-control employee_document_type_id' %>
+                  </div>
+                  <div class="field">
+                    <%= f.label :'N° de Documento', :class => 'control-label' %>
+                    <%= f.text_field :documentnumber, :class => 'form-control employee_documentnumber' %>
+                  </div>
+                  <div class="field">
+                    <%= f.label :'Nombres', :class => 'control-label' %>
+                    <%= f.text_field :name, :class => 'form-control employee_name' %>
+                  </div>
+                  <div class="field">
+                    <%= f.label :'Apellido Paterno', :class => 'control-label' %>
+                    <%= f.text_field :lastname, :class => 'form-control employee_lastname' %>
+                  </div>
+                  <div class="field">
+                    <%= f.label :'Apellido Materno', :class => 'control-label' %>
+                    <%= f.text_field :motherslastname, :class => 'form-control employee_motherslastname' %>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <%= f.submit 'Guardar Cambios', :class => 'btn btn-primary' %>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <% end %>
+    <!-- editar-->
+</div>

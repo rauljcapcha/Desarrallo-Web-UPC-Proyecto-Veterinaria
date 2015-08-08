@@ -1,0 +1,72 @@
+<div class="calendar" id="veterinary_appointment_<%= veterinary_appointment.id %>">
+<%if current_user.user_type_id == 3%>
+  <%= 'Cita ' + veterinary_appointment.date.strftime("%I:%M%p")%>
+<%else%>   
+  <%= link_to veterinary_appointment.customer.name + ' ' + veterinary_appointment.date.strftime("%I:%M%p"), veterinary_appointment_path(veterinary_appointment) %><br>
+  
+  <button class="btn btn-xs btn-success" data-toggle="modal" data-target="#myupdate_veterinary_appointment_<%= veterinary_appointment.id %>">
+      Editar
+  </button>
+  | 
+  <%= link_to 'Eliminar', veterinary_appointment, method: :delete, data: { confirm: 'Eliminar?' }, :class => 'btn btn-xs btn-danger', remote: true %>
+<%end%>
+<!-- Editar -->
+<%= form_for(veterinary_appointment, remote: true) do |f| %>
+  <!-- error -->
+    <% if veterinary_appointment.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(veterinary_appointment.errors.count, "error") %> prohibited this veterinary_appointment from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% veterinary_appointment.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+  <!-- error -->
+<!-- Modal -->
+<div class="modal fade" id="myupdate_veterinary_appointment_<%= veterinary_appointment.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">Modificar Cita</h4>
+            </div>
+            <div class="modal-body">
+                <div class="field">
+                  <%= f.label :'Cliente', :class => 'control-label' %>
+                  <%= f.select :customer_id, options_for_select(Customer.all.map{|s|[s.name, s.id]}, selected_key = veterinary_appointment.customer_id), :class => 'form-control veterinary_appointment_customer_id' %>
+                </div>
+                <div class="field">
+                  <%= f.label :'Mascota', :class => 'control-label' %>
+                  <%= f.select :pet_id, options_for_select(Pet.all.map{|s|[s.name, s.id]}, selected_key = veterinary_appointment.pet_id), :class => 'form-control veterinary_appointment_pet_id' %>
+                </div>
+                <div class="field">
+                  <%= f.label :'Fecha y Hora', :class => 'control-label' %>
+                  <%= f.datetime_local_field :date, :class => 'form-control veterinary_appointment_date' %>
+                </div>
+                <div class="field">
+                  <%= f.label :'Nota', :class => 'control-label' %>
+                  <%= f.text_field :note, :class => 'form-control veterinary_appointment_note' %>
+                </div>
+                <div class="field">
+                  <%= f.label :'Estado de Cita', :class => 'control-label' %>
+                  Estado <%= f.check_box :status, :class => 'form-control veterinary_appointment_status'  %>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <%= f.submit 'Guardar Cambios', :class => 'btn btn-primary' %>
+                </div>
+            </div>
+        <!-- /.modal-content -->
+      </div>
+    <!-- /.modal-dialog -->
+    </div>
+<!-- /.modal -->
+</div>
+<% end %>
+<!-- editar-->

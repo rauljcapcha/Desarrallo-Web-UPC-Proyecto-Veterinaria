@@ -4,7 +4,12 @@ class BreedsController < ApplicationController
   # GET /breeds
   # GET /breeds.json
   def index
-    @breeds = Breed.all
+    #@breeds = Breed.all
+    if params[:search]
+      @breeds = Breed.search(params[:search]).order("id ASC")
+    else
+      @breeds = Breed.all.order('id ASC')
+    end
   end
 
   # GET /breeds/1

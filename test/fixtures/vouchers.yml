@@ -9,7 +9,6 @@ one:
   pet_id: 
   total: 9.99
   seller_id: 
-  datevoucher: 2015-07-22 01:08:51
 
 two:
   voucher_type_id: 
@@ -20,4 +19,3 @@ two:
   pet_id: 
   total: 9.99
   seller_id: 
-  datevoucher: 2015-07-22 01:08:51

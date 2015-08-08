@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150723010043) do
+ActiveRecord::Schema.define(version: 20150807181217) do
 
   create_table "atentions", force: :cascade do |t|
     t.integer  "veterinary_appointment_id", limit: 4
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20150723010043) do
     t.integer  "pet_id",                    limit: 4
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.datetime "dateatention"
+    t.datetime "date"
   end
 
   add_index "atentions", ["customer_id"], name: "index_atentions_on_customer_id", using: :btree
@@ -178,15 +178,14 @@ ActiveRecord::Schema.define(version: 20150723010043) do
   end
 
   create_table "sellers", force: :cascade do |t|
-    t.integer  "employee_id",        limit: 4
-    t.integer  "veterinary_user_id", limit: 4
-    t.string   "observation",        limit: 255
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.integer  "employee_id", limit: 4
+    t.integer  "user_id",     limit: 4
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
   add_index "sellers", ["employee_id"], name: "index_sellers_on_employee_id", using: :btree
-  add_index "sellers", ["veterinary_user_id"], name: "index_sellers_on_veterinary_user_id", using: :btree
+  add_index "sellers", ["user_id"], name: "index_sellers_on_user_id", using: :btree
 
   create_table "service_types", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -210,24 +209,36 @@ ActiveRecord::Schema.define(version: 20150723010043) do
     t.datetime "updated_at",             null: false
   end
 
-  create_table "veterinary_appointments", force: :cascade do |t|
-    t.integer  "customer_id",     limit: 4
-    t.integer  "pet_id",          limit: 4
-    t.datetime "dateappointment"
-    t.string   "note",            limit: 255
+  create_table "user_types", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name",            limit: 255
+    t.string   "email",           limit: 255
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.string   "password_digest", limit: 255
+    t.string   "remember_digest", limit: 255
+    t.integer  "user_type_id",    limit: 4
+  end
+
+  add_index "users", ["user_type_id"], name: "index_users_on_user_type_id", using: :btree
+
+  create_table "veterinary_appointments", force: :cascade do |t|
+    t.integer  "customer_id", limit: 4
+    t.integer  "pet_id",      limit: 4
+    t.datetime "date"
+    t.string   "note",        limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.boolean  "status",      limit: 1
   end
 
   add_index "veterinary_appointments", ["customer_id"], name: "index_veterinary_appointments_on_customer_id", using: :btree
   add_index "veterinary_appointments", ["pet_id"], name: "index_veterinary_appointments_on_pet_id", using: :btree
-
-  create_table "veterinary_users", force: :cascade do |t|
-    t.string   "nameuser",     limit: 255
-    t.string   "passworduser", limit: 255
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-  end
 
   create_table "voucher_types", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -244,7 +255,6 @@ ActiveRecord::Schema.define(version: 20150723010043) do
     t.integer  "pet_id",          limit: 4
     t.decimal  "total",                       precision: 10
     t.integer  "seller_id",       limit: 4
-    t.datetime "datevoucher"
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
   end
@@ -277,8 +287,9 @@ ActiveRecord::Schema.define(version: 20150723010043) do
   add_foreign_key "products", "product_types"
   add_foreign_key "products", "providers"
   add_foreign_key "sellers", "employees"
-  add_foreign_key "sellers", "veterinary_users"
+  add_foreign_key "sellers", "users"
   add_foreign_key "services", "service_types"
+  add_foreign_key "users", "user_types"
   add_foreign_key "veterinary_appointments", "customers"
   add_foreign_key "veterinary_appointments", "pets"
   add_foreign_key "vouchers", "atentions"

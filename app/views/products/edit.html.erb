@@ -1,6 +1,6 @@
-<h1>Editing Product</h1>
+<%- model_class = Product -%>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @product %> |
-<%= link_to 'Back', products_path %>
+<div class="page-header">
+  <h1><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h1>
+</div>
+<%= render :partial => 'form' %>

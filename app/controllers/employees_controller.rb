@@ -5,6 +5,7 @@ class EmployeesController < ApplicationController
   # GET /employees.json
   def index
     @employees = Employee.all
+    @employee = Employee.new
   end
 
   # GET /employees/1
@@ -30,9 +31,11 @@ class EmployeesController < ApplicationController
       if @employee.save
         format.html { redirect_to @employee, notice: 'Employee was successfully created.' }
         format.json { render :show, status: :created, location: @employee }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @employee.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -44,9 +47,10 @@ class EmployeesController < ApplicationController
       if @employee.update(employee_params)
         format.html { redirect_to @employee, notice: 'Employee was successfully updated.' }
         format.json { render :show, status: :ok, location: @employee }
-      else
+        format.js
         format.html { render :edit }
         format.json { render json: @employee.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -58,6 +62,7 @@ class EmployeesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to employees_url, notice: 'Employee was successfully destroyed.' }
       format.json { head :no_content }
+      format.js
     end
   end
 

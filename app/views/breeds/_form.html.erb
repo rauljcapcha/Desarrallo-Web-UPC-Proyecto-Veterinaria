@@ -1,25 +1,37 @@
-<%= form_for(@breed) do |f| %>
-  <% if @breed.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@breed.errors.count, "error") %> prohibited this breed from being saved:</h2>
+<%= form_for @breed, :html => { :class => "form-horizontal breed" } do |f| %>
 
-      <ul>
-      <% @breed.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <% if @breed.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@breed.errors.count, "error") %> prohibited this breed from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @breed.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'form-control' %>
+    </div>
+    <%= error_span(@breed[:name]) %>
   </div>
-  <div class="field">
-    <%= f.label :'Género' %><br>
-    <%= f.select :species_id, options_for_select(Species.all.map{|s|[s.name, s.id]}, selected_key = @breed.species_id)%>
+  <div class="control-group">
+    <%= f.label :'Especie', :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :species_id, options_for_select(Species.all.map{|s|[s.name, s.id]}, selected_key = @breed.species_id), :class => 'form-control' %>
+    </div>
+    <%= error_span(@breed[:species_id]) %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            breeds_path, :class => 'btn btn-default' %>
+
 <% end %>

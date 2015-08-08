@@ -1,33 +1,52 @@
-<%= form_for(@provider) do |f| %>
-  <% if @provider.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@provider.errors.count, "error") %> prohibited this provider from being saved:</h2>
+<%= form_for @provider, :html => { :class => "form-horizontal provider" } do |f| %>
 
-      <ul>
-      <% @provider.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <% if @provider.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@provider.errors.count, "error") %> prohibited this provider from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @provider.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'form-control' %>
+    </div>
+    <%= error_span(@provider[:name]) %>
   </div>
-  <div class="field">
-    <%= f.label :streetaddress %><br>
-    <%= f.text_field :streetaddress %>
+  <div class="control-group">
+    <%= f.label :streetaddress, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :streetaddress, :class => 'form-control' %>
+    </div>
+    <%= error_span(@provider[:streetaddress]) %>
   </div>
-  <div class="field">
-    <%= f.label :phone %><br>
-    <%= f.text_field :phone %>
+  <div class="control-group">
+    <%= f.label :phone, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :phone, :class => 'form-control' %>
+    </div>
+    <%= error_span(@provider[:phone]) %>
   </div>
-  <div class="field">
-    <%= f.label :postalcode %><br>
-    <%= f.text_field :postalcode %>
+  <div class="control-group">
+    <%= f.label :postalcode, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :postalcode, :class => 'form-control' %>
+    </div>
+    <%= error_span(@provider[:postalcode]) %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            providers_path, :class => 'btn btn-default' %>
+
 <% end %>

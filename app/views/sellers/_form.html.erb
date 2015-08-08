@@ -12,16 +12,12 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :'Empleado' %><br>
-    <%= f.select :employee_id, options_for_select(Employee.all.map{|s|[s.name, s.id]}, selected_key = @seller.employee_id)%>
+    <%= f.label :employee_id %><br>
+    <%= f.text_field :employee_id %>
   </div>
   <div class="field">
-    <%= f.label :'Usuario' %><br>
-    <%= f.select :veterinary_user_id, options_for_select(VeterinaryUser.all.map{|s|[s.nameuser, s.id]}, selected_key = @seller.veterinary_user_id)%>
-  </div>
-  <div class="field">
-    <%= f.label :observation %><br>
-    <%= f.text_field :observation %>
+    <%= f.label :user_id %><br>
+    <%= f.text_field :user_id %>
   </div>
   <div class="actions">
     <%= f.submit %>

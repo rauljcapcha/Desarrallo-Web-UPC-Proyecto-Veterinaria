@@ -14,7 +14,17 @@ class PetsController < ApplicationController
 
   # GET /pets/new
   def new
+    if params[:format].nil?
+      @customer = Customer.find(1)
+    else
+      @customer = Customer.find(params[:format])
+    end
     @pet = Pet.new
+    @pet.customer = @customer
+    #@species = Species.find(1)
+    #@breed = Breed.find(1)    
+    #@pet.species = @species
+    #@pet.breed = @breed
   end
 
   # GET /pets/1/edit

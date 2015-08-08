@@ -1,0 +1,58 @@
+<%= form_for @user, :html => { :class => "form-horizontal user" } do |f| %>
+<%= render 'shared/error_messages' %>
+
+<div class="form-group">
+      <div class="form-group">
+      <label class="control-label">Tipo de Usuario:</label>
+      <%if current_user.nil?%>
+            <select class="form-control" name="user[user_type_id]">
+              <%UserType.all.each do |user_type|%>
+                  <%if user_type.id == 3%>
+                        <option value="<%=user_type.id%>" selected="selected"><%=user_type.name%></option>
+                  <%end%>
+              <%end%>
+            </select>
+      <%else%>
+            <%if current_user.user_type_id != 3%>
+                  <select class="form-control" name="user[user_type_id]">
+                    <%UserType.all.each do |user_type|%>
+                        <%if user_type.id == @user.user_type_id %>
+                              <option value="<%=user_type.id%>" selected="selected"><%=user_type.name%></option>
+                        <%else%>
+                              <option value="<%=user_type.id%>"><%=user_type.name%></option>
+                        <%end%>
+                    <%end%>
+                  </select> 
+            <%else%>
+                  <select class="form-control" name="user[user_type_id]">
+                    <%UserType.all.each do |user_type|%>
+                        <%if user_type.id == 3%>
+                              <option value="<%=user_type.id%>" selected="selected"><%=user_type.name%></option>
+                        <%end%>
+                    <%end%>
+                  </select>
+            <%end%>
+      <%end%>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Nombre de Usuario:</label>
+        <input type="text" id="name" name="user[name]" class="form-control" value="<%= @user.name%>"/>
+      </div>
+       <div class="form-group">
+        <label class="control-label">Correo Electrónico:</label>
+        <input type="text" id="email" name="user[email]" class="form-control" value="<%= @user.email%>"/>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Contraseña:</label>
+        <input class="form-control" type="password" id="password" name="user[password]" value="<%= @user.password%>"/>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Confirmar Contraseña:</label>
+        <input class="form-control" type="password" id="password_confirmation" name="user[password_confirmation]" value="<%= @user.password_confirmation%>"/>
+      </div>
+      <span class="help-block"></span>
+      <div class="form-group">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+</div>
+<% end %>
